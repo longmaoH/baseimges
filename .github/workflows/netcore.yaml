@@ -7,8 +7,9 @@ on:
   workflow_dispatch:
     inputs: {}
 env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: iteainger/base_image
+    REGISTRY: ghcr.io
+    IMAGE_NAMESPACE: longmaoh  # 全小写
+    IMAGE_NAME: baseimges
 jobs:
   build:
     runs-on: ubuntu-latest
