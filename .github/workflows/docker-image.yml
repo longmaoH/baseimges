@@ -8,7 +8,7 @@ on:
     inputs: {}
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: iteainger/base_image
+  IMAGE_NAME: iteainger/baseimges
 jobs:
   build:
     runs-on: ubuntu-latest
