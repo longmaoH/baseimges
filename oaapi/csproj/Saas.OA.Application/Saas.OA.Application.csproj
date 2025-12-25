@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Version>1.0.0.0</Version>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
+    <AssemblyName>Saas.OA.Application</AssemblyName>
+    <PackageId>Saas.OA.Application</PackageId>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <RootNamespace>Saas.OA</RootNamespace>
+    <Authors>Saas.OA.Application</Authors>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>Saas.OA.Application.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="SaasDingTalk\Dto\AccessToken.cs" />
+    <Compile Remove="SaasDingTalk\helper\DingDingOACore.cs" />
+    <Compile Remove="SaasDingTalk\helper\DingTalkToken.cs" />
+    <Compile Remove="SaasDingTalk\helper\Helper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Abp.EntityFrameworkCore" Version="4.8.1" />
+    <PackageReference Include="Abp.AutoMapper" Version="4.8.1" />
+    <PackageReference Include="JwtCore" Version="1.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+    <PackageReference Include="TopSdk.Core" Version="2019.4.21.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Approval\" />
+    <Folder Include="Hrm\Tenant\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Saas.OA.Core\Saas.OA.Core.csproj" />
+  </ItemGroup>
+</Project>

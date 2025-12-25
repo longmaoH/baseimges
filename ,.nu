@@ -129,3 +129,18 @@ export def git-hooks [act ctx] {
 export def main [] {
     gen
 }
+
+export def csproj [src target --glob(-g): glob = **/*.csproj] {
+  mkdir $target
+  let target = $env.PWD | path join $target
+  cd $src
+  print $env.PWD
+  ls ($glob | into glob)
+  | get name
+  | each {|x|
+      let d = $target | path join ...($x | path parse | get parent)
+      print $"(ansi grey)($x) => ($d)(ansi reset)"
+      mkdir $d
+      cp -r $x $d
+  }
+}
