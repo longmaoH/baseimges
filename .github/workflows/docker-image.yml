@@ -8,7 +8,7 @@ on:
     inputs: {}
 
 env:
-   REGISTRY: ghcr.io
+  REGISTRY: ghcr.io
   IMAGE_NAMESPACE: longmaoh  # 全小写
   IMAGE_NAME: baseimges
 
