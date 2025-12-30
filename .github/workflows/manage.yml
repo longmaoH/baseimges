@@ -1,0 +1,77 @@
+name: build manage
+on:
+  push:
+    branches:
+      - main
+      - manage
+  workflow_dispatch:
+    inputs: {}
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAMESPACE: longmaoh  # 全小写
+  IMAGE_NAME: baseimges
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: ${{ !endsWith(github.event.head_commit.message, '~') }}
+    
+    permissions:
+      contents: read
+      packages: write
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    
+    - name: Log into registry ${{ env.REGISTRY }}
+      if: github.event_name != 'pull_request'
+      uses: docker/login-action@v2
+      with:
+        registry: ${{ env.REGISTRY }}
+        username: iteainger
+        password: ${{ secrets.GHCR_TOKEN }}
+    
+    - name: Extract Docker metadata
+      id: meta
+      uses: docker/metadata-action@v4
+      with:
+        # 修改为正确的镜像地址格式
+        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAMESPACE }}/${{ env.IMAGE_NAME }}
+    
+    - name: Check for changes
+      id: changes
+      uses: dorny/paths-filter@v3
+      with:
+        filters: |
+          manage:
+            - manage/**
+    
+    - name: Build manage builder image
+      if: steps.changes.outputs.manage == 'true' || github.event.name == 'workflow_dispatch'
+      uses: docker/build-push-action@v4
+      with:
+        context: manage
+        file: manage/builder-2.2.Dockerfile
+        push: ${{ github.event_name != 'pull_request' }}
+        tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAMESPACE }}/${{ env.IMAGE_NAME }}:manage-builder-2.2
+        labels: ${{ steps.meta.outputs.labels }}
+        build-args: |
+          REGISTRY=${{ env.REGISTRY }}
+          IMAGE_NAMESPACE=${{ env.IMAGE_NAMESPACE }}
+          IMAGE_NAME=${{ env.IMAGE_NAME }}
+    
+    - name: Build manage runtime image
+      if: steps.changes.outputs.manage == 'true' || github.event.name == 'workflow_dispatch'
+      uses: docker/build-push-action@v4
+      with:
+        context: manage
+        file: manage/runtime-2.2.Dockerfile
+        push: ${{ github.event_name != 'pull_request' }}
+        tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAMESPACE }}/${{ env.IMAGE_NAME }}:manage-runtime-2.2
+        labels: ${{ steps.meta.outputs.labels }}
+        build-args: |
+          REGISTRY=${{ env.REGISTRY }}
+          IMAGE_NAMESPACE=${{ env.IMAGE_NAMESPACE }}
+          IMAGE_NAME=${{ env.IMAGE_NAME }}
