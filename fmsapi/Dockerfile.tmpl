@@ -2,7 +2,7 @@ ARG PROJ_NAME=FMS_API_Core.Web
 ARG PROJ_DIR=FMS_API_Core.Web
 
 ARG REGISTRY=ghcr.io/iteainger
-ARG IMAGE_NAME=base_image
+ARG IMAGE_NAME=baseimages
 ARG BUILDER=${REGISTRY}/${IMAGE_NAME}:netcore-builder-2.2
 ARG RUNTIME=${REGISTRY}/${IMAGE_NAME}:netcore-runtime-2.2
 FROM ${BUILDER} AS build
