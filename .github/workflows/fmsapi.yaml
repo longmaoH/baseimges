@@ -1,9 +1,9 @@
-name: build netcore
+name: build fmsapi
 on:
   push:
     branches:
       - main
-      - netcore
+      - fmsapi
   workflow_dispatch:
     inputs: {}
 
@@ -45,31 +45,31 @@ jobs:
       uses: dorny/paths-filter@v3
       with:
         filters: |
-          netcore:
-            - netcore/**
+          fmsapi:
+            - fmsapi/**
     
-    - name: Build netcore builder image
-      if: steps.changes.outputs.netcore == 'true' || github.event.name == 'workflow_dispatch'
+    - name: Build fmsapi builder image
+      if: steps.changes.outputs.fmsapi == 'true' || github.event.name == 'workflow_dispatch'
       uses: docker/build-push-action@v4
       with:
-        context: netcore
-        file: netcore/builder-2.2.Dockerfile
+        context: fmsapi
+        file: fmsapi/builder-2.2.Dockerfile
         push: ${{ github.event_name != 'pull_request' }}
-        tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAMESPACE }}/${{ env.IMAGE_NAME }}:netcore-builder-2.2
+        tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAMESPACE }}/${{ env.IMAGE_NAME }}:fmsapi-builder-2.2
         labels: ${{ steps.meta.outputs.labels }}
         build-args: |
           REGISTRY=${{ env.REGISTRY }}
           IMAGE_NAMESPACE=${{ env.IMAGE_NAMESPACE }}
           IMAGE_NAME=${{ env.IMAGE_NAME }}
     
-    - name: Build netcore runtime image
-      if: steps.changes.outputs.netcore == 'true' || github.event.name == 'workflow_dispatch'
+    - name: Build fmsapi runtime image
+      if: steps.changes.outputs.fmsapi == 'true' || github.event.name == 'workflow_dispatch'
       uses: docker/build-push-action@v4
       with:
-        context: netcore
-        file: netcore/runtime-2.2.Dockerfile
+        context: fmsapi
+        file: fmsapi/runtime-2.2.Dockerfile
         push: ${{ github.event_name != 'pull_request' }}
-        tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAMESPACE }}/${{ env.IMAGE_NAME }}:netcore-runtime-2.2
+        tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAMESPACE }}/${{ env.IMAGE_NAME }}:fmsapi-runtime-2.2
         labels: ${{ steps.meta.outputs.labels }}
         build-args: |
           REGISTRY=${{ env.REGISTRY }}
