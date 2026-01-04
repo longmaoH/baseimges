@@ -27,10 +27,7 @@
   <ItemGroup>
     <PackageReference Include="Abp.EntityFrameworkCore" Version="4.8.1" />
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.4">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.4"/>
     <PackageReference Include="MySql.Data" Version="8.0.17" />
     <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.17" />
     <PackageReference Include="MySql.Data.EntityFrameworkCore.Design" Version="8.0.17" />
