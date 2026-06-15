@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Version>1.0.0.0</Version>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
+    <AssemblyName>Saas.CRM.Application</AssemblyName>
+    <PackageId>Saas.CRM.Application</PackageId>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <RootNamespace>Saas.CRM</RootNamespace>
+    <Authors>Saas.CRM.Application</Authors>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>Saas.CRM.Application.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Common\Socket\SaasWebChat.cs" />
+    <Compile Remove="Common\Socket\SaasWebHub.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Abp" Version="4.8.1" />
+    <PackageReference Include="Abp.EntityFrameworkCore" Version="4.8.1" />
+    <PackageReference Include="Abp.AutoMapper" Version="4.8.1" />
+    <PackageReference Include="Aliyun.OSS.SDK.NetCore" Version="2.14.1" />
+    <PackageReference Include="Aspose.Cells" Version="19.8.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+    <PackageReference Include="Microsoft.AspNetCore.WebSockets" Version="2.2.1" />
+    <PackageReference Include="NPOI" Version="2.4.1" />
+    <PackageReference Include="XinGe.NetCore" Version="1.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Saas.CRM.Core\Saas.CRM.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App\CRM\Follow\Dto\" />
+    <Folder Include="App\OMS\ShopPurchase\Dto\" />
+    <Folder Include="App\Region\Dto\" />
+  </ItemGroup>
+</Project>
